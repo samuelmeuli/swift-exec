@@ -9,10 +9,7 @@ To use SwiftExec with the [Swift Package Manager](https://swift.org/package-mana
 ```swift
 let package = Package(
 	dependencies: [
-		.package(
-			url: "https://github.com/samuelmeuli/swift-exec",
-			from: "0.1.0"
-		),
+		.package(url: "https://github.com/samuelmeuli/swift-exec", "0.1.0" ..< "0.2.0"),
 	],
 	targets: [
 		.target(
