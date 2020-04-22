@@ -101,11 +101,14 @@ public func exec(
 		))
 	}
 
+	let stdoutData = outPipe.fileHandleForReading.readDataToEndOfFile()
+	let stderrData = errPipe.fileHandleForReading.readDataToEndOfFile()
+
+	// Wait for process to finish. Must be called after `readDataToEndOfFile` because otherwise,
+	// the process will hang if a pipe is full
 	process.waitUntilExit()
 
 	// Create strings with the contents of `stdout` and `stderr`
-	let stdoutData = outPipe.fileHandleForReading.readDataToEndOfFile()
-	let stderrData = errPipe.fileHandleForReading.readDataToEndOfFile()
 	var stdoutString = String(data: stdoutData, encoding: .utf8) ?? ""
 	var stderrString = String(data: stderrData, encoding: .utf8) ?? ""
 	if options.stripFinalNewline {
