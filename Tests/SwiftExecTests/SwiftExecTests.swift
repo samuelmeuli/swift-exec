@@ -94,6 +94,19 @@ final class SwiftExecTests: XCTestCase {
 		))
 	}
 
+	/// Tests the handling of large `stdout` by printing the same character n times
+	func testExecWithLargeStdout() throws {
+		let characterToRepeat = "="
+		let repetitionCount = 1_000_000
+		let result = try execBash("printf '\(characterToRepeat)%.0s' {1..\(repetitionCount)}")
+		XCTAssertEqual(result, ExecResult(
+			failed: false,
+			exitCode: 0,
+			stdout: String(repeating: characterToRepeat, count: repetitionCount),
+			stderr: ""
+		))
+	}
+
 	static var allTests = [
 		("testExecSuccess", testExecSuccess),
 		("testExecFailure", testExecFailure),
