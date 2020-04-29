@@ -13,5 +13,5 @@ jobs:
       - name: Check out Git repository
         uses: actions/checkout@v2
 
-      - name: Test
+      - name: Run tests
         run: xcodebuild clean test -workspace ./.swiftpm/xcode/package.xcworkspace -scheme SwiftExec
